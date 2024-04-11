@@ -1,0 +1,25 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<button @onclick ="FetchData">Get Data</button>
+
+@if(test !=null)
+{
+    <h3> Title: @test.Name</h3>
+    <p> Completed: @test.Price</p> 
+}
+
+@code{
+    @using ProjectCode9.Models;
+
+    public Product test;
+
+    public HttpClient httpClient = new HttpClient();
+
+    public async Task FetchData()
+    {
+        test = await httpClient.GetFromJsonAsync<Product>("https://localhost:7027/WeatherForecast");
+    }
+
+}
